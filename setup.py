@@ -10,11 +10,11 @@ class BuildExt(build_ext):
 
         if compiler_type == 'msvc':
             extra_args = []
-            if platform.machine() == "AMD64":
-                extra_args += ["/ARCH:AVX", "/arch:AVX2"]
+            if platform.machine() in {"AMD64", "x86_64"}:
+                extra_args += ["/arch:AVX", "/arch:AVX2"]
         else:
             extra_args = ['-fno-strict-aliasing']
-            if platform.machine() == "x86_64":
+            if platform.machine() in {"AMD64", "x86_64"}:
                 extra_args += ["-msse4.1", "-mpclmul"]
 
         for ext in self.extensions:
